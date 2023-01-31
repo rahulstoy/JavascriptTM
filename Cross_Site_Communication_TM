@@ -1,0 +1,24 @@
+//Cross site communication using tampermonkey
+// ==UserScript==
+// @id          rahulstoy
+// @name        cross_site
+// @namespace   cross_site
+// @description cross_site_communication
+// @version     1.0
+// @include     https://www.openstreetmap.org/edit*
+// @grant       GM_getResourceText
+// @grant       GM_addStyle
+// @grant       GM_getResourceURL
+// @grant       GM_setValue
+// @grant       GM_getValue
+// @include 	file*
+// @run-at      document-end
+// @grant       GM_setClipboard
+// ==/UserScript==
+if(window.location.host==="www.openstreetmap.org"){
+var arr = [1,2]
+GM_setValue("arr_site_1",arr) //stores arr value in tampermonkey storage variable arr_site_1
+}
+if(window.location.host==="https://osmcha.org"){
+console.log(GM_getValue("arr_site_1")) //fetches data stored in arr_site_1 and prints in the console
+}
