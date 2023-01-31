@@ -1,0 +1,40 @@
+//Code for adding a button to turn on streetviews at once
+// ==UserScript==
+// @id          rahulstoy
+// @name        cross_site
+// @namespace   cross_site
+// @description cross_site_communication
+// @version     1.0
+// @include     https://www.openstreetmap.org/edit*
+// @grant       GM_getResourceText
+// @grant       GM_addStyle
+// @grant       GM_getResourceURL
+// @grant       GM_setValue
+// @grant       GM_getValue
+// @include 	file*
+// @run-at      document-end
+// @grant       GM_setClipboard
+// ==/UserScript==
+var imageryToogle = '<label id="toogleImage" class="btn""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16"><path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/></svg></label>'
+        $(".primary").append(imageryToogle)
+        $("#toogleImage").css("color","red");
+        document.querySelector("#toogleImage").addEventListener('click',function(){
+            var iframe = document.getElementById('id-embed');
+            var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+            if(innerDoc.querySelector('li.list-item-photos.list-item-streetside input').checked===false){
+                $("#toogleImage").css("color","green")
+                osmPanelsLoad()
+            }
+            else{
+                $("#toogleImage").css("color","red")
+                osmPanelsLoad()
+            }})
+
+        function osmPanelsLoad(){
+            var iframe = document.getElementById('id-embed');
+            var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+            innerDoc.querySelector('li.list-item-photos.list-item-streetside input').click();
+            innerDoc.querySelector('li.list-item-photos.list-item-mapillary input').click();
+            innerDoc.querySelector('li.list-item-photos.list-item-kartaview input').click();
+            innerDoc.querySelector('.background-panel-toggle-item input').click()
+        }
