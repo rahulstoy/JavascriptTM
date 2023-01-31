@@ -1,0 +1,49 @@
+//osm loading spinner_color_coding
+// ==UserScript==
+// @id          rahulstoy
+// @name        osm_spinner
+// @namespace   osm_spinner
+// @description spinner_color_code
+// @version     1.0
+// @include     https://www.openstreetmap.org/edit*
+// @grant       GM_getResourceText
+// @grant       GM_addStyle
+// @grant       GM_getResourceURL
+// @grant       GM_setValue
+// @grant       GM_getValue
+// @include 	file*
+// @run-at      document-end
+// @grant       GM_setClipboard
+// ==/UserScript==
+loadFrame()
+function loadFrame() {
+    var tmpIntervalclear = setInterval(function () {
+        if (document.getElementById('id-embed')) {
+            var iframe = document.getElementById('id-embed');
+            var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+            if(innerDoc.querySelector("#iD-icon-line")){
+                clearInterval(tmpIntervalclear);
+                setint()
+                    }
+        }
+    }, 1000);
+}
+setint();
+function setint(){
+    var temp = setInterval(function(){
+            {
+                var innerDoc = document.getElementById('id-embed').contentDocument;
+                if(innerDoc.querySelector(".spinner img").style.opacity==0){
+                    clearInterval(temp)
+                    innerDoc.querySelector(".spinner img").style.opacity=0.99
+                    innerDoc.querySelector(".spinner img").src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Single_Color_Flag_-_ffd700.png"
+                    setint()
+                }
+                else if(innerDoc.querySelector(".spinner img").style.opacity==1){
+                    clearInterval(temp)
+                    innerDoc.querySelector(".spinner img").src="img/loader-black.gif"
+                    setint()
+                }
+            }
+        }, 1000)
+    }
